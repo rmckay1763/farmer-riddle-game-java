@@ -2,6 +2,8 @@ package farmer;
 
 import javax.swing.SwingUtilities;
 
+import farmer.view.View;
+
 public class App {
 
 
@@ -10,6 +12,7 @@ public class App {
             @Override
             public void run() {
                 View view = new View();
+                view.moveBoat();
             }
         });
     }
