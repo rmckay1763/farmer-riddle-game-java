@@ -1,74 +1,78 @@
 package farmer.view;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.awt.image.BufferedImage;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Dimension;
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class River extends JPanel {
     
-    public static final int BOAT_STEPS = 50;
+    public static final int BOAT_START = 0;
+    public static final int BOAT_END = 50;
     private static final int ANIMATION_DELAY = 50;
-    private static final String RIVER_IMAGE_FILE = "image/river.png";
-    private static final String BOAT_IMAGE_FILE = "image/boat.png";
     private BufferedImage riverImage;
     private BufferedImage boatImage;
     private int boatXOrigin;
     private int boatYOrigin;
     private int boatOffset;
+    private Timer moveBoatFoward;
+    private Timer moveBoatBackward;
 
-    public River(boolean animate) {
-        boatOffset = 0;
-        InputStream boatImageStream = 
-            getClass().getClassLoader().getResourceAsStream(BOAT_IMAGE_FILE);
-        InputStream riverImageStream = 
-            getClass().getClassLoader().getResourceAsStream(RIVER_IMAGE_FILE);
-        try {
-            boatImage = ImageIO.read(boatImageStream);
-            riverImage = ImageIO.read(riverImageStream);
-            setBoatOrigin(boatOffset);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Timer timer = new Timer(ANIMATION_DELAY, e -> {
-            setBoatOrigin(boatOffset++);
+    public River(BufferedImage riverImage, BufferedImage boatImage) {
+        this.riverImage = riverImage;
+        this.boatImage = boatImage;
+        boatOffset = BOAT_START;
+        setBoatOrigin(boatOffset);
+        moveBoatFoward = new Timer(ANIMATION_DELAY, e -> {
+            setBoatOrigin(++boatOffset);
             repaint();
-            if (boatOffset > BOAT_STEPS) {
+            if (boatOffset == BOAT_END) {
                 Timer t = (Timer) e.getSource();
                 t.stop();
             }
         });
-        if (animate) {
-            timer.start();
+        moveBoatBackward = new Timer(ANIMATION_DELAY, e -> {
+            setBoatOrigin(--boatOffset);
+            repaint();
+            if (boatOffset == BOAT_START) {
+                Timer t = (Timer) e.getSource();
+                t.stop();
+            }
+        });
+    }
+
+    public int getBoatOffset() {
+        return boatOffset;
+    }
+
+    public void setBoatImage(BufferedImage boatImage) {
+        this.boatImage = boatImage;
+    }
+
+    
+
+    public void startAnimation() {
+        if (boatOffset == BOAT_START) {
+            moveBoatFoward.start();
+        } else {
+            moveBoatBackward.start();
         }
         
     }
 
-    private void setBoatOrigin(int offset) {
-        if (offset < 0 || offset > BOAT_STEPS) {
+    private void setBoatOrigin(int offset) throws IllegalArgumentException {
+        if (offset < 0 || offset > BOAT_END) {
             throw new IllegalArgumentException("offset out of range");
         }
         int riverHeight = riverImage.getHeight();
         int riverWidth = riverImage.getWidth();
         int boatHeight = boatImage.getHeight();
         int boatWidth = boatImage.getWidth();
-        int stepDistance = (riverWidth - boatWidth) / BOAT_STEPS;
+        int stepDistance = (riverWidth - boatWidth) / BOAT_END;
         boatXOrigin = stepDistance * offset;
         boatYOrigin = (riverHeight / 2) - (boatHeight / 2);
-    }
-
-    public void moveBoat(int offset, int delay) {
-        Timer timer = new Timer(delay, e -> {
-            setBoatOrigin(offset);
-            repaint();
-        });
-        timer.setRepeats(false);
-        timer.start();
     }
         
     @Override

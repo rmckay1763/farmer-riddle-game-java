@@ -12,7 +12,7 @@ public class App {
             @Override
             public void run() {
                 View view = new View();
-                view.moveBoat();
+                view.foo();
             }
         });
     }
