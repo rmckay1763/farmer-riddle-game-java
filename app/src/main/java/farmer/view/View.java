@@ -11,7 +11,6 @@ public class View extends JFrame {
     private static final int HEIGHT = 750;
     private static final int PADDING = 20;
 
-    private ImageLib images;
     private River river;
     JButton crossRiverButton;
 
@@ -20,9 +19,8 @@ public class View extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(WIDTH, HEIGHT);
         setLocation(PADDING, PADDING);
-        images = ImageLib.getInstance();
 
-        river = new River(images.river, images.boatEmpty);
+        river = new River(ImageLib.getRiver());
         JPanel riverPanel = new JPanel();
         riverPanel.add(river);
 
