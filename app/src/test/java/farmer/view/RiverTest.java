@@ -1,22 +1,24 @@
 package farmer.view;
 
 import org.junit.jupiter.api.Test;
+
+import farmer.model.ImageLib;
+import farmer.model.ImageLib.Boat;
+
 import org.junit.jupiter.api.BeforeEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import farmer.view.ImageLib.Boat;
-
 public class RiverTest {
     
-    River river;
+    RiverView river;
 
     /**
      * Instantiate a new River for each test.
      */
     @BeforeEach
     void init() {
-        river = new River(ImageLib.getRiver());
+        river = new RiverView(ImageLib.getRiver());
     }
 
     /**

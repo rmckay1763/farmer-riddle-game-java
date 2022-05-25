@@ -1,6 +1,11 @@
 package farmer.view;
 
 import org.junit.jupiter.api.Test;
+
+import farmer.model.ImageLib;
+import farmer.model.ImageLib.Boat;
+import farmer.model.ImageLib.Item;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -9,8 +14,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
-import farmer.view.ImageLib.Boat;
-import farmer.view.ImageLib.Item;
 
 /**
  * Test class for ImageLib.

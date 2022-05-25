@@ -5,24 +5,22 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Dimension;
 import javax.swing.JPanel;
-import javax.swing.Timer;
-import farmer.view.ImageLib.Boat;
+
+import farmer.model.ImageLib.Boat;
 
 /**
  * The view component for the river and the boat. 
  */
-public class River extends JPanel {
+public class RiverView extends JPanel {
     
     public static final int BOAT_START_OFFSET = 0;
     public static final int BOAT_END_OFFSET = 50;
-    private static final int ANIMATION_DELAY = 50;
+    public static final int ANIMATION_DELAY = 50;
     private BufferedImage riverImage;
     private Boat boat;
     private int boatXOrigin;
     private int boatYOrigin;
     private int boatOffset;
-    private Timer moveBoatFoward;
-    private Timer moveBoatBackward;
 
     /**
      * Constructs the River with the given image and a Boat.DEFAULT object 
@@ -30,27 +28,11 @@ public class River extends JPanel {
      * 
      * @param riverImage BufferedImage representing the river.
      */
-    public River(BufferedImage riverImage) {
+    public RiverView(BufferedImage riverImage) {
         this.riverImage = riverImage;
         boat = Boat.DEFAULT;
         boatOffset = BOAT_START_OFFSET;
         setBoatOrigin(boatOffset);
-        moveBoatFoward = new Timer(ANIMATION_DELAY, e -> {
-            setBoatOrigin(++boatOffset);
-            repaint();
-            if (boatOffset == BOAT_END_OFFSET) {
-                Timer t = (Timer) e.getSource();
-                t.stop();
-            }
-        });
-        moveBoatBackward = new Timer(ANIMATION_DELAY, e -> {
-            setBoatOrigin(--boatOffset);
-            repaint();
-            if (boatOffset == BOAT_START_OFFSET) {
-                Timer t = (Timer) e.getSource();
-                t.stop();
-            }
-        });
     }
 
     /**
@@ -82,22 +64,11 @@ public class River extends JPanel {
     }
 
     /**
-     * Moves the boat foward/backward across the river depending on the value of boatOffset.
-     */
-    public void startAnimation() {
-        if (boatOffset == BOAT_START_OFFSET) {
-            moveBoatFoward.start();
-        } else if (boatOffset == BOAT_END_OFFSET) {
-            moveBoatBackward.start();
-        }
-    }
-
-    /**
      * Compute the origin for painting the boat on top of the river.
      * @param offset The offset from the side of the river.
      * @throws IllegalArgumentException If offset is less then BOAT_START_OFFSET or greater than BOAT_END_OFFSET.
      */
-    private void setBoatOrigin(int offset) throws IllegalArgumentException {
+    public void setBoatOrigin(int offset) throws IllegalArgumentException {
         if (offset < BOAT_START_OFFSET || offset > BOAT_END_OFFSET) {
             throw new IllegalArgumentException("offset out of range");
         }

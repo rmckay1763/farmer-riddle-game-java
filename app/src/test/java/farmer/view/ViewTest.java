@@ -7,11 +7,11 @@ import org.junit.jupiter.api.BeforeEach;
 
 public class ViewTest {
 
-    View view;
+    GameView view;
 
     @BeforeEach
     void init() {
-        view = new View();
+        view = new GameView();
     }
     
     @Test

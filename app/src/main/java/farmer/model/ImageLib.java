@@ -1,4 +1,4 @@
-package farmer.view;
+package farmer.model;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -6,6 +6,8 @@ import java.net.URL;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+
+import farmer.view.ImageLoadException;
 
 /**
  * Single reference for all images used in the application. 
