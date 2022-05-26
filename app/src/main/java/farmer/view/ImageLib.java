@@ -1,4 +1,4 @@
-package farmer.model;
+package farmer.view;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -6,8 +6,6 @@ import java.net.URL;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-
-import farmer.view.ImageLoadException;
 
 /**
  * Single reference for all images used in the application. 
@@ -26,72 +24,69 @@ public class ImageLib {
     private static final String BOAT_FOX_PATH = "image/boat/fox.png";
     private static final String BOAT_GRAIN_PATH = "image/boat/grain.png";
 
-    /**
-     * Contains a type and ImageIcon for each farmer item.
-     */
-    public enum Item {
+    private static ImageIcon chickenIcon;
+    private static ImageIcon foxIcon = loadImageIcon(ITEM_FOX_PATH);
+    private static ImageIcon grainIcon = loadImageIcon(ITEM_GRAIN_PATH);
+    private static BufferedImage boatDefault = loadImage(BOAT_DEFAULT_PATH);
+    private static BufferedImage boatChicken = loadImage(BOAT_CHICKEN_PATH);
+    private static BufferedImage boatFox = loadImage(BOAT_FOX_PATH);
+    private static BufferedImage boatGrain = loadImage(BOAT_GRAIN_PATH);
+    private static BufferedImage river = loadImage(RIVER_PATH);
 
-        CHICKEN(ITEM_CHICKEN_PATH),
-        FOX(ITEM_FOX_PATH),
-        GRAIN(ITEM_GRAIN_PATH);
-
-        /**
-         * The ImageIcon to represent the Item.
-         */
-        private final ImageIcon IMAGE_ICON;
-
-        /**
-         * @param path Path to the image resource.
-         */
-        Item(String path) {
-            IMAGE_ICON = loadImageIcon(path);
+    public static ImageIcon getChickeIcon() {
+        if (chickenIcon == null) {
+            chickenIcon = loadImageIcon(ITEM_CHICKEN_PATH);
         }
-
-        /**
-         * @return ImageIcon for the Item.
-         */
-        public ImageIcon getImageIcon() {
-            return IMAGE_ICON;
-        }
+        return chickenIcon;
     }
 
-    /**
-     * Contains a type and BufferedImage for each boat.
-     */
-    public enum Boat {
-
-        DEFAULT(BOAT_DEFAULT_PATH),
-        CHICKEN(BOAT_CHICKEN_PATH),
-        FOX(BOAT_FOX_PATH),
-        GRAIN(BOAT_GRAIN_PATH);
-
-        /**
-         * The BufferedImage to represent the Boat.
-         */
-        private final BufferedImage IMAGE;
-
-        /**
-         * @param path Path to the image resource.
-         */
-        Boat(String path) {
-            IMAGE = loadImage(path);
+    public static ImageIcon getFoxIcon() {
+        if (foxIcon == null) {
+            foxIcon = loadImageIcon(ITEM_FOX_PATH);
         }
-
-        /**
-         * @return BufferedImage for the Boat.
-         */
-        public BufferedImage getImage() {
-            return IMAGE;
-        }
+        return foxIcon;
     }
 
-    private static final BufferedImage RIVER = loadImage(RIVER_PATH);
+    public static ImageIcon getGrainIcon() {
+        if (grainIcon == null) {
+            grainIcon = loadImageIcon(ITEM_GRAIN_PATH);
+        }
+        return grainIcon;
+    }
 
-    /**
-     * @return BufferedImage to represent the river in the game.
-     */
+    public static BufferedImage getBoatDefault() {
+        if (boatDefault == null) {
+            boatDefault = loadImage(BOAT_DEFAULT_PATH);
+        }
+        return boatDefault;
+    }
+
+    public static BufferedImage getBoatChicken() {
+        if (boatChicken == null) {
+            boatChicken = loadImage(BOAT_CHICKEN_PATH);
+        }
+        return boatChicken;
+    }
+
+    public static BufferedImage getBoatFox() {
+        if (boatFox == null) {
+            boatFox = loadImage(BOAT_FOX_PATH);
+        }
+        return boatFox;
+    }
+
+    public static BufferedImage getBoatGrain() {
+        if (boatGrain == null) {
+            boatGrain = loadImage(BOAT_GRAIN_PATH);
+        }
+        return boatGrain;
+    }
+
     public static BufferedImage getRiver() {
-        return RIVER;
+        if (river == null) {
+            river = loadImage(RIVER_PATH);
+        }
+        return river;
     }
 
     /**

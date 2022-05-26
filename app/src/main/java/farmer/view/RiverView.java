@@ -6,8 +6,6 @@ import java.awt.Graphics2D;
 import java.awt.Dimension;
 import javax.swing.JPanel;
 
-import farmer.model.ImageLib.Boat;
-
 /**
  * The view component for the river and the boat. 
  */
@@ -17,7 +15,7 @@ public class RiverView extends JPanel {
     public static final int BOAT_END_OFFSET = 50;
     public static final int ANIMATION_DELAY = 50;
     private BufferedImage riverImage;
-    private Boat boat;
+    private BufferedImage boatImage;
     private int boatXOrigin;
     private int boatYOrigin;
     private int boatOffset;
@@ -30,7 +28,7 @@ public class RiverView extends JPanel {
      */
     public RiverView(BufferedImage riverImage) {
         this.riverImage = riverImage;
-        boat = Boat.DEFAULT;
+        boatImage = ImageLib.getBoatDefault();
         boatOffset = BOAT_START_OFFSET;
         setBoatOrigin(boatOffset);
     }
@@ -50,17 +48,10 @@ public class RiverView extends JPanel {
     }
 
     /**
-     * @param boat Boat.DEFAULT, Boat.CHICKEN, Boat.FOX, or Boat.GRAIN
+     * @param boat The image for painting the boat.
      */
-    public void setBoat(Boat boat) {
-        this.boat = boat;
-    }
-
-    /**
-     * @return Boat.DEFAULT, Boat.CHICKEN, Boat.FOX, or Boat.GRAIN
-     */
-    public Boat getBoat() {
-        return boat;
+    public void setBoat(BufferedImage boatImage) {
+        this.boatImage = boatImage;
     }
 
     /**
@@ -74,8 +65,8 @@ public class RiverView extends JPanel {
         }
         int riverHeight = riverImage.getHeight();
         int riverWidth = riverImage.getWidth();
-        int boatHeight = boat.getImage().getHeight();
-        int boatWidth = boat.getImage().getWidth();
+        int boatHeight = boatImage.getHeight();
+        int boatWidth = boatImage.getWidth();
         int stepDistance = (riverWidth - boatWidth) / BOAT_END_OFFSET;
         boatXOrigin = stepDistance * offset;
         boatYOrigin = (riverHeight / 2) - (boatHeight / 2);
@@ -87,7 +78,7 @@ public class RiverView extends JPanel {
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.drawImage(riverImage, 0, 0, this);
         graphics.translate(boatXOrigin, boatYOrigin);
-        graphics.drawImage(boat.getImage(), 0, 0, this);
+        graphics.drawImage(boatImage, 0, 0, this);
         graphics.dispose();
     }
 

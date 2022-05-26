@@ -3,7 +3,7 @@ package farmer;
 import javax.swing.SwingUtilities;
 
 import farmer.controller.GameController;
-import farmer.model.Model;
+import farmer.model.GameModel;
 import farmer.view.GameView;
 
 public class App {
@@ -13,11 +13,10 @@ public class App {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                Model model = new Model();
+                GameModel model = new GameModel();
                 GameView view = new GameView();
                 GameController controller = new GameController(model, view);
                 controller.addListeners();
-                controller.addItems();
             }
         });
     }

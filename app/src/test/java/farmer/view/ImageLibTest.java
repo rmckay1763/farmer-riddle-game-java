@@ -1,17 +1,9 @@
 package farmer.view;
 
 import org.junit.jupiter.api.Test;
-
-import farmer.model.ImageLib;
-import farmer.model.ImageLib.Boat;
-import farmer.model.ImageLib.Item;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 
@@ -23,67 +15,52 @@ public class ImageLibTest {
     final String GOOD_PATH = "image/item/chicken.png";
     final String BAD_PATH = "foo/bar.png";
 
-    /**
-     * Test the Item enum.
-     */
     @Test
-    void itemEnum() {
-        Item chicken1 = Item.CHICKEN;
-        Item chicken2 = Item.CHICKEN;
-        Item fox = Item.FOX;
-        Item grain = Item.GRAIN;
-        assertEquals(chicken1, chicken2);
-        assertNotEquals(fox, grain);
+    void chickenIcon() {
+        ImageIcon icon = ImageLib.getChickeIcon();
+        assertNotNull(icon);
     }
 
-    /**
-     * Test the Boat enum.
-     */
     @Test
-    void boatEnum() {
-        Boat chicken1 = Boat.CHICKEN;
-        Boat chicken2 = Boat.CHICKEN;
-        Boat fox = Boat.FOX;
-        Boat grain = Boat.GRAIN;
-        assertEquals(chicken1, chicken2);
-        assertNotEquals(fox, grain);
+    void foxIcon() {
+        ImageIcon icon = ImageLib.getFoxIcon();
+        assertNotNull(icon);
     }
 
-    /**
-     * Item.getImageIcon() should return a non null instance of ImageIcon.
-     */
     @Test
-    void itemGetImageIcon() {
-        ImageIcon chickenIcon = Item.CHICKEN.getImageIcon();
-        ImageIcon foxIcon = Item.FOX.getImageIcon();
-        ImageIcon grainIcon = Item.GRAIN.getImageIcon();
-        assertNotNull(chickenIcon);
-        assertNotNull(foxIcon);
-        assertNotNull(grainIcon);
+    void grainIcon() {
+        ImageIcon icon = ImageLib.getFoxIcon();
+        assertNotNull(icon);
     }
 
-    /**
-     * Boat.getImage() should return a non null instance of BufferedImage.
-     */
     @Test
-    void boatGetImage() {
-        BufferedImage defaultImage = Boat.DEFAULT.getImage();
-        BufferedImage chickenImage = Boat.CHICKEN.getImage();
-        BufferedImage foxImage = Boat.FOX.getImage();
-        BufferedImage grainImage = Boat.GRAIN.getImage();
-        assertNotNull(defaultImage);
-        assertNotNull(chickenImage);
-        assertNotNull(foxImage);
-        assertNotNull(grainImage);
+    void boatDefault() {
+        BufferedImage image = ImageLib.getBoatDefault();
+        assertNotNull(image);
     }
 
-    /**
-     * ImageLib.getRiver() should return a non null BufferedImage.
-     */
     @Test
-    void getRiver() {
-        BufferedImage river = ImageLib.getRiver();
-        assertNotNull(river);
+    void boatChicken() {
+        BufferedImage image = ImageLib.getBoatChicken();
+        assertNotNull(image);
+    }
+
+    @Test
+    void boatFox() {
+        BufferedImage image = ImageLib.getBoatFox();
+        assertNotNull(image);
+    }
+
+    @Test
+    void boatGrain() {
+        BufferedImage image = ImageLib.getBoatGrain();
+        assertNotNull(image);
+    }
+
+    @Test
+    void river() {
+        BufferedImage image = ImageLib.getRiver();
+        assertNotNull(image);
     }
 
     /**

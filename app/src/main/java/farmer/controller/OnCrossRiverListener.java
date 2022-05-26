@@ -2,18 +2,19 @@ package farmer.controller;
 
 import java.awt.event.ActionEvent;
 import javax.swing.Timer;
+import farmer.view.GameView;
 import farmer.view.RiverView;
 
-public class CrossRiverAdapter {
+public class OnCrossRiverListener {
 
-    private RiverView riverView;
+    private GameView view;
     private GameController controller;
     private int boatOffset;
     private Timer fowardTimer;
     private Timer backwardTimer;
 
-    public CrossRiverAdapter(RiverView riverView, GameController controller) {
-        this.riverView = riverView;
+    public OnCrossRiverListener(GameView view, GameController controller) {
+        this.view = view;
         this.controller = controller;
         boatOffset = RiverView.BOAT_START_OFFSET;
         fowardTimer = new Timer(RiverView.ANIMATION_DELAY, event -> moveBoatFoward(event));
@@ -31,8 +32,7 @@ public class CrossRiverAdapter {
     }
     
     private void moveBoatFoward(ActionEvent event) {
-        riverView.setBoatOrigin(++boatOffset);
-        riverView.repaint();
+        view.moveBoat(++boatOffset);
         if (boatOffset == RiverView.BOAT_END_OFFSET) {
             fowardTimer.stop();
             controller.onCrossRiverDone();
@@ -40,8 +40,7 @@ public class CrossRiverAdapter {
     }
 
     private void moveBoatBackward(ActionEvent event) {
-        riverView.setBoatOrigin(--boatOffset);
-        riverView.repaint();
+        view.moveBoat(--boatOffset);
         if (boatOffset == RiverView.BOAT_START_OFFSET) {
             backwardTimer.stop();
             controller.onCrossRiverDone();
