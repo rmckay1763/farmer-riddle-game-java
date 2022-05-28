@@ -11,9 +11,8 @@ import farmer.model.Location;
 
 public class GameView extends JFrame {
 
-    public static final String DEFAULT_MESSAGE = "Help the farmer get all items across the river";
-    public static final String GAME_LOST_MESSAGE = "Game over. You lost.";
-    public static final String GAME_WON_MESSAGE = "YOU WON!";
+    public static final String DEFAULT_MESSAGE = 
+        "Help the farmer get all items across the river";
 
     private static final int WIDTH = 1250;
     private static final int HEIGHT = 750;
@@ -24,6 +23,7 @@ public class GameView extends JFrame {
     private RiverBankView westRiverBank;
     private JButton unloadItemButton;
     private JButton crossRiverButton;
+    private JButton restartGameButton;
     private JLabel gameStatusLabel;
 
     public GameView() {
@@ -43,11 +43,12 @@ public class GameView extends JFrame {
         contentPanel.add(eastRiverBank);
 
         unloadItemButton = new JButton("Unload Item");
-        unloadItemButton.setEnabled(false);
         crossRiverButton = new JButton("Cross River");
+        restartGameButton = new JButton("Restart Game");
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(unloadItemButton);
         buttonPanel.add(crossRiverButton);
+        buttonPanel.add(restartGameButton);
 
         gameStatusLabel = new JLabel(DEFAULT_MESSAGE);
         JPanel gameStatusPanel = new JPanel();
@@ -78,7 +79,7 @@ public class GameView extends JFrame {
         river.repaint();
     }
 
-    public void setGameStatusMessage(String message) {
+    public void setStatusMessage(String message) {
         gameStatusLabel.setText(message);
     }
 
@@ -109,17 +110,13 @@ public class GameView extends JFrame {
         }
     }
 
+    public void resetItems() {
+        westRiverBank.showAllItems();
+        eastRiverBank.hideAllItems();
+    }
+
     public void setUnloadItemEnabled(boolean enable) {
         unloadItemButton.setEnabled(enable);
-    }
-
-    public void setCrossRiverEnabled(boolean enable) {
-        crossRiverButton.setEnabled(enable);
-    }
-
-    public void disableAllActions() {
-        setUnloadItemEnabled(false);
-        setCrossRiverEnabled(false);
     }
 
     public void addOnItemSelectedListener(ActionListener listener) {
@@ -133,5 +130,9 @@ public class GameView extends JFrame {
 
     public void addOnCrossRiverListener(ActionListener listener) {
         crossRiverButton.addActionListener(listener);
+    }
+
+    public void addOnRestartGameListener(ActionListener listener) {
+        restartGameButton.addActionListener(listener);
     }
 }
