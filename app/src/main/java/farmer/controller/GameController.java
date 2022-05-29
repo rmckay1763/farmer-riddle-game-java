@@ -8,25 +8,38 @@ import farmer.model.Location;
 import farmer.view.GameView;
 import farmer.view.ItemButton;
 
+/**
+ * Listens for events from the GameView. 
+ * 
+ *  - onCrossRiver is called when the user clicks the cross river button.
+ *  - onItemSelected is called when the user clicks an item in the view. 
+ *  - onUnloadItemFromBoat is called when the user clicks the unload item button.
+ *  - onResartGame is called when the user clicks the restart game button.
+ * 
+ * Each listener calls methods in GameModel to process the event and update the view. 
+ * GameModel updates state and a status message to send back to the view.
+ * 
+ */
 public class GameController {
-
-    public static final String ITEM_LOADED_MESSAGE = "%s loaded into boat";
-    public static final String ITEM_UNLOADED_MESSAGE = "%s unloaded from boat";
-    public static final String START_CROSSING_MESSAGE = "Farmer leaving %s of river";
-    public static final String DONE_CROSSING_MESSAGE = "Farmer on %s of river";
-    public static final String GAME_WON_MESSAGE = "You win!";
-    public static final String GAME_LOST_MESSAGE = "You lost";
     
     private GameModel model;
     private GameView view;
     private CrossRiverAnimator crossRiverAnimator;
 
+    /**
+     * Constructor.
+     * @param model The model for the game.
+     * @param view The user interface for the game.
+     */
     public GameController(GameModel model, GameView view) {
         this.model = model;
         this.view = view;
         crossRiverAnimator = new CrossRiverAnimator(view, this);
     }
 
+    /**
+     * Registers listeners for each action element in the view.
+     */
     public void addListeners() {
         view.addOnCrossRiverListener(event -> onCrossRiver());
         view.addOnItemSelectedListener(event -> onItemSelected(event));
@@ -34,63 +47,77 @@ public class GameController {
         view.addOnRestartGameListener(event -> onRestartGame());
     }
 
+    /**
+     * Determines which item was selected in the view and notifies the model.
+     * Updates the boat image in the view with the selected item.
+     * 
+     * @param event ActionEvent with the source of the event.
+     */
     private void onItemSelected(ActionEvent event) {
 
         ItemButton button = (ItemButton)event.getSource();
         Item item = button.getItem();
         Location itemLocation = button.getItemLocation();
+
         try {
             model.loadItemInBoat(item, itemLocation);
             view.hideItem(item, itemLocation);
             view.setBoatImage(item);
-            view.setStatusMessage(String.format(ITEM_LOADED_MESSAGE, item));
+            view.setStatusMessage(model.getGameStatus());
+
         } catch (IllegalActionException error) {
             view.setStatusMessage(error.getMessage());
         }
     }
 
+    /**
+     * Calls unloadItemFromBoat in the model to update state and retrieve the item.
+     * Notifies the view to show the item and updates the boat image. 
+     */
     public void onUnloadItemFromBoat() {
 
         try {
             Item item = model.unloadItemFromBoat();
             view.showItem(item, model.getFarmer().getFarmerLocation());
             view.setBoatImage(Item.NONE);
-            if (model.getEnvironment().hasWon()) {
-                view.setStatusMessage(GAME_WON_MESSAGE);;
-            } else {
-                view.setStatusMessage(String.format(ITEM_UNLOADED_MESSAGE, item));
-            }
+            view.setStatusMessage(model.getGameStatus());
+
         } catch (IllegalActionException error) {
             view.setStatusMessage(error.getMessage());
         }
     }
 
+    /**
+     * Calls startCrossingRiver in the model to update state.
+     * Starts the animation for the boat moving across the river.
+     */
     private void onCrossRiver() {
         try {
             model.startCrossingRiver();
             crossRiverAnimator.start();
-            Location location = model.getFarmer().getFarmerLocation();
-            view.setStatusMessage(String.format(START_CROSSING_MESSAGE, location));
+            view.setStatusMessage(model.getGameStatus());
         } catch (IllegalActionException error) {
             view.setStatusMessage(error.getMessage());
         }
     }
 
+    /**
+     * Stops the animation of the boat crossing the river. 
+     * Notifies the model to update state.
+     */
     public void onCrossRiverDone() {
         try {
             crossRiverAnimator.stop();
             model.doneCrossingRiver();
-            Location location = model.getFarmer().getFarmerLocation();
-            if (model.getEnvironment().hasLost(location)) {
-                view.setStatusMessage(GAME_LOST_MESSAGE);
-            } else {
-                view.setStatusMessage(String.format(DONE_CROSSING_MESSAGE, location));
-            }
+            view.setStatusMessage(model.getGameStatus());
         } catch (IllegalActionException error) {
             view.setStatusMessage(error.getMessage());
         }
     }
 
+    /**
+     * Resets the model and the view to inital state.
+     */
     public void onRestartGame() {
         crossRiverAnimator.stop();
         crossRiverAnimator.setBoatOffset(0);

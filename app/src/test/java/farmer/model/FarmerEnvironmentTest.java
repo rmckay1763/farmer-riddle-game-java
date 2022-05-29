@@ -61,49 +61,50 @@ public class FarmerEnvironmentTest {
      * Removing all items from westBankItems should win the game.
      */
     @Test
-    void hasWon() {
-        ArrayList<Item> westBank = env.getWestBankItems();
-        westBank.clear();
-        assertTrue(env.hasWon());
+    void allItemsAcross() {
+        env.addItemToEastBank(Item.CHICKEN);
+        env.addItemToEastBank(Item.FOX);
+        env.addItemToEastBank(Item.GRAIN);
+        assertTrue(env.allItemsAcross());
     }
 
     @Test
     void hasWonFalse() {
-        ArrayList<Item> westBank = env.getWestBankItems();
-        assertFalse(westBank.isEmpty());
-        assertFalse(env.hasWon());
+        ArrayList<Item> eastBank = env.getEastBankItems();
+        assertFalse(eastBank.contains(Item.CHICKEN));
+        assertFalse(env.allItemsAcross());
     }
 
     /**
      * westBankItems contains CHICKEN + FOX and farmer on east bank should loose game.
      */
     @Test
-    void hasLostChickenFoxOnWestBankFarmerOnEastBank() {
+    void foxAteChickenFarmerOnEastBank() {
         ArrayList<Item> westBank = env.getWestBankItems();
         assertTrue(westBank.contains(Item.CHICKEN));
         assertTrue(westBank.contains(Item.FOX));
-        assertTrue(env.hasLost(Location.EAST_BANK));
+        assertTrue(env.foxAteChicken(Location.EAST_BANK));
     }
 
     @Test
-    void hasLostChickenGrainOnWestBankFarmerOnEastBank() {
+    void chickenAteGrainFarmerOnEastBank() {
         ArrayList<Item> westBank = env.getWestBankItems();
         assertTrue(westBank.contains(Item.CHICKEN));
         assertTrue(westBank.contains(Item.GRAIN));
-        assertTrue(env.hasLost(Location.EAST_BANK));
+        assertTrue(env.chickenAteGrain(Location.EAST_BANK));
     }
 
     @Test
-    void hasLostChickenFoxOnEastBankFarmerOnWestBank() {
+    void foxAteChickenFarmerOnWestBank() {
         env.addItemToEastBank(Item.CHICKEN);
         env.addItemToEastBank(Item.FOX);
-        assertTrue(env.hasLost(Location.WEST_BANK));
+        assertTrue(env.foxAteChicken(Location.WEST_BANK));
     }
 
     @Test
-    void hasLostChickenGrainOnEastBankFarmerOnWestBank() {
+    void chickenAteGrainFarmerOnWestBank() {
         env.addItemToEastBank(Item.CHICKEN);
         env.addItemToEastBank(Item.GRAIN);
-        assertTrue(env.hasLost(Location.WEST_BANK));
+        assertTrue(env.chickenAteGrain(Location.WEST_BANK));
     }
 }

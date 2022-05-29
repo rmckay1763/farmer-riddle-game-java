@@ -55,25 +55,32 @@ public class FarmerEnvironment {
         westBankItems.remove(item);
     }
 
-    public boolean hasWon() {
-        return westBankItems.isEmpty();
+    public boolean allItemsAcross() {
+        return 
+            eastBankItems.contains(Item.CHICKEN) && 
+            eastBankItems.contains(Item.FOX) && 
+            eastBankItems.contains(Item.GRAIN);
     }
 
-    public boolean hasLost(Location farmerLocation) {
+    public boolean foxAteChicken(Location farmerLocation) {
         switch (farmerLocation) {
             case EAST_BANK:
-                return hasConflict(westBankItems);
+                return westBankItems.contains(Item.CHICKEN) && westBankItems.contains(Item.FOX);
             case WEST_BANK:
-                return hasConflict(eastBankItems);
+                return eastBankItems.contains(Item.CHICKEN) && eastBankItems.contains(Item.FOX);
             default:
                 return false;
         }
     }
 
-    protected boolean hasConflict(ArrayList<Item> items) {
-        return (
-            (items.contains(Item.CHICKEN) && items.contains(Item.FOX)) ||
-            (items.contains(Item.CHICKEN) && items.contains(Item.GRAIN))
-        );
+    public boolean chickenAteGrain(Location farmerLocation) {
+        switch (farmerLocation) {
+            case EAST_BANK:
+                return westBankItems.contains(Item.CHICKEN) && westBankItems.contains(Item.GRAIN);
+            case WEST_BANK:
+                return eastBankItems.contains(Item.CHICKEN) && eastBankItems.contains(Item.GRAIN);
+            default:
+                return false;
+        }
     }
 }
