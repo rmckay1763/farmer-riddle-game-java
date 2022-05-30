@@ -9,14 +9,16 @@ public class ImageLoadException extends RuntimeException {
      * Default constructor.
      */
     public ImageLoadException() {
+
         super();
     }
 
     /**
-     * Overloaded constructor.
+     * Overloaded constructor to set error message.
      * @param message Description of the error that occurred.
      */
     public ImageLoadException(String message) {
+        
         super(message);
     }
 }

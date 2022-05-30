@@ -2,144 +2,160 @@ package farmer.view;
 
 import java.awt.event.ActionListener;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import javax.swing.JLabel;
 import farmer.model.Item;
 import farmer.model.Location;
 
+/**
+ * Main view for the game. Contains the content panel, control panel, and status panel.
+ */
 public class GameView extends JFrame {
 
-    public static final String DEFAULT_MESSAGE = "Help the farmer get all items across the river";
     private static final int OFFSET = 20;
-    private static final Color GREEN = new Color(5, 105, 0);
-    private static final Color BLONDE = new Color(246, 236, 213);
 
-    private RiverView river;
-    private RiverBankView eastRiverBank;
-    private RiverBankView westRiverBank;
-    private JButton unloadItemButton;
-    private JButton crossRiverButton;
-    private JButton restartGameButton;
-    private JLabel statusLabel;
+    /**
+     * The panel for displaying the status message after each action.
+     */
+    private StatusPanel statusPanel;
 
+    /**
+     * The panel for displaying the game content: river, boat, items on each river bank.
+     */
+    private ContentPanel contentPanel;
+
+    /**
+     * The panel for displaying the control buttons to perform game actions.
+     */
+    private ControlPanel controlPanel;
+
+    /**
+     * Constructor. Instantiates and adds the content panel, control panel, and status panel.
+     */
     public GameView() {
+
         super("Farmer Riddle Game");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocation(OFFSET, OFFSET);
 
-        river = new RiverView(ImageLib.RIVER);
-        westRiverBank = new RiverBankView(Location.WEST_BANK);
-        westRiverBank.showAllItems();
-        eastRiverBank = new RiverBankView(Location.EAST_BANK);
+        controlPanel = new ControlPanel();
+        contentPanel = new ContentPanel();
+        statusPanel = new StatusPanel();
 
-        JPanel contentPanel = new JPanel();
-        contentPanel.setBackground(GREEN);
-        contentPanel.add(westRiverBank);
-        contentPanel.add(river);
-        contentPanel.add(eastRiverBank);
-
-        unloadItemButton = new ControlButton("Unload Boat", ImageLib.UNLOAD_ICON, ImageLib.UNLOAD_ICON_HOVER);
-        crossRiverButton = new ControlButton("Cross River", ImageLib.CROSS_ICON, ImageLib.CROSS_ICON_HOVER);
-        restartGameButton = new ControlButton("Restart Game", ImageLib.RESTART_ICON, ImageLib.RESTART_ICON_HOVER);
-
-        JPanel controlPanel = new JPanel();
-        controlPanel.setBackground(BLONDE);
-        controlPanel.add(unloadItemButton);
-        controlPanel.add(crossRiverButton);
-        controlPanel.add(restartGameButton);
-
-        statusLabel = new JLabel(DEFAULT_MESSAGE);
-        JPanel statusPanel = new JPanel();
-        statusPanel.setBackground(BLONDE);
-        statusPanel.add(statusLabel);
-
+        add(statusPanel, BorderLayout.NORTH);
         add(contentPanel, BorderLayout.CENTER);
         add(controlPanel, BorderLayout.SOUTH);
-        add(statusPanel, BorderLayout.NORTH);
-
+        
         pack();
         setVisible(true);
     }
 
+    /**
+     * Sets the initial state of the content panel for a new game.
+     */
     public void setInitialState() {
-        eastRiverBank.hideAllItems();
-        westRiverBank.showAllItems();
-        setBoatImage(Item.NONE);
-        moveBoat(0);
-        setStatusMessage(GameView.DEFAULT_MESSAGE);
+
+        contentPanel.setInitialState();
     }
 
+    /**
+     * Sets the boat image in the content panel.
+     * 
+     * @param item The item in the boat for selecting the boat image.
+     */
     public void setBoatImage(Item item) {
-        switch(item) {
-            case NONE:
-                river.setBoat(ImageLib.BOAT_DEFAULT);
-                break;
-            case CHICKEN:
-                river.setBoat(ImageLib.BOAT_CHICKEN);
-                break;
-            case FOX:
-                river.setBoat(ImageLib.BOAT_FOX);
-                break;
-            case GRAIN:
-                river.setBoat(ImageLib.BOAT_GRAIN);
-                break;
-        }
-        river.repaint();
+
+        contentPanel.setBoatImage(item);
     }
 
+    /**
+     * Sets the status message in the status panel.
+     * 
+     * @param message Message from the model with the result of an action.
+     */
     public void setStatusMessage(String message) {
-        statusLabel.setText(message);
+
+        statusPanel.setMessage(message);
     }
 
+    /**
+     * Moves the boat in the content panel.
+     * 
+     * @param offset The offset from the west river bank to paint the boat.
+     */
     public void moveBoat(int offset) {
-        river.setBoatOrigin(offset);
-        river.repaint();
+
+        contentPanel.moveBoat(offset);
     }
 
+    /**
+     * Shows an item in the content panel for the specified river bank.
+     * 
+     * @param item The item to show.
+     * @param location The location of the item to show.
+     */
     public void showItem(Item item, Location location) {
-        switch(location) {
-            case EAST_BANK:
-                eastRiverBank.showItem(item);
-                break;
-            case WEST_BANK:
-                westRiverBank.showItem(item);
-                break;
-        }
+
+        contentPanel.showItem(item, location);
     }
 
+    /**
+     * Hides an item in the content panel for the specified river bank.
+     * 
+     * @param item The item to hide.
+     * @param location The location of the item to hide.
+     */
     public void hideItem(Item item, Location location) {
-        switch(location) {
-            case EAST_BANK:
-                eastRiverBank.hideItem(item);
-                break;
-            case WEST_BANK:
-                westRiverBank.hideItem(item);
-                break;
-        }
+
+        contentPanel.hideItem(item, location);
     }
 
-    public void resetItems() {
-        westRiverBank.showAllItems();
-        eastRiverBank.hideAllItems();
+    /**
+     * Adds a listener for when the user selects an item in the content panel.
+     * 
+     * @param listener ActionListener for when the user selects an item.
+     */
+    public void addItemSelectedListener(ActionListener listener) {
+
+        contentPanel.addItemSelectedListener(listener);
     }
 
-    public void addOnItemSelectedListener(ActionListener listener) {
-        eastRiverBank.addOnItemSelectedListener(listener);
-        westRiverBank.addOnItemSelectedListener(listener);
+    /**
+     * Adds a listener for when the user selects the unload boat button.
+     * 
+     * @param listener ActionListener for processing events from the unload boat button.
+     */
+    public void addUnloadBoatListener(ActionListener listener) {
+
+        controlPanel.addUnloadBoatListener(listener);
     }
 
-    public void addOnUnloadItemListener(ActionListener listener) {
-        unloadItemButton.addActionListener(listener);
+    /**
+     * Adds a listener for the when user selects to cross the river.
+     * 
+     * @param listener ActionListener for processing events from the cross river button.
+     */
+    public void addCrossRiverListener(ActionListener listener) {
+
+        controlPanel.addCrossRiverListener(listener);
     }
 
-    public void addOnCrossRiverListener(ActionListener listener) {
-        crossRiverButton.addActionListener(listener);
+    /**
+     * Adds a listener for when the user selects the restart button.
+     * 
+     * @param listener ActionListener for processing events from the restart button.
+     */
+    public void addRestartListener(ActionListener listener) {
+
+        controlPanel.addRestartListener(listener);
     }
 
-    public void addOnRestartGameListener(ActionListener listener) {
-        restartGameButton.addActionListener(listener);
+    /**
+     * Adds a listener for when the user selects the help button.
+     * 
+     * @param listener ActionListener for processing events from the help button.
+     */
+    public void addHelpListener(ActionListener listener) {
+        
+        controlPanel.addHelpListener(listener);
     }
 }

@@ -16,7 +16,7 @@ public class App {
                 GameModel model = new GameModel();
                 GameView view = new GameView();
                 GameController controller = new GameController(model, view);
-                controller.addListeners();
+                controller.onRestartGame();
             }
         });
     }

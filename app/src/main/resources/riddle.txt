@@ -1,0 +1,6 @@
+A farmer must get a fox, chicken, and sack of grain safely across a river 
+from the west bank to the east bank. The farmer's boat can only carry one
+item at a time along with the farmer. Unfortunately, if the farmer leaves 
+the fox and chicken together, the fox will eat the chicken. If the  farmer 
+leaves the chicken and the grain together, the chicken will eat the grain. 
+How can the farmer get all items safeley across the river?

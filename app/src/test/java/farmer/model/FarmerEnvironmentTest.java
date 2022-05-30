@@ -21,6 +21,10 @@ public class FarmerEnvironmentTest {
         env = new FarmerEnvironment();
     }
 
+    /**
+     * east bank should be empty, west bank should contain chicken, fox, and grain. 
+     * itemInBoat should be Item.NONE.
+     */
     @Test
     void initialState() {
         ArrayList<Item> eastBank = env.getEastBankItems();
@@ -32,6 +36,9 @@ public class FarmerEnvironmentTest {
         assertEquals(env.getItemInBoat(), Item.NONE);
     }
 
+    /**
+     * addItemToEastBank should add the item to the east bank list.
+     */
     @Test
     void addItemToEastBank() {
         ArrayList<Item> eastBank = env.getEastBankItems();
@@ -40,6 +47,9 @@ public class FarmerEnvironmentTest {
         assertTrue(eastBank.contains(Item.CHICKEN));
     }
 
+    /**
+     * addItemToWestBank should add the item to the west bank list.
+     */
     @Test
     void addItemToWestBank() {
         ArrayList<Item> westBank = env.getWestBankItems();
@@ -49,6 +59,9 @@ public class FarmerEnvironmentTest {
         assertTrue(westBank.contains(Item.CHICKEN));
     }
 
+    /**
+     * removeItemFromWestBank should remove the item from the west bank list.
+     */
     @Test
     void removeItemFromWestBank() {
         ArrayList<Item> westBank = env.getWestBankItems();
@@ -58,7 +71,7 @@ public class FarmerEnvironmentTest {
     }
     
     /**
-     * Removing all items from westBankItems should win the game.
+     * allItemsCross should return true if east bank contains chicken, fox, and grain.
      */
     @Test
     void allItemsAcross() {
@@ -68,15 +81,18 @@ public class FarmerEnvironmentTest {
         assertTrue(env.allItemsAcross());
     }
 
+    /**
+     * allItemsAcross should return false if east bank does not contain chicken.
+     */
     @Test
-    void hasWonFalse() {
+    void allItemsAcrossFalse() {
         ArrayList<Item> eastBank = env.getEastBankItems();
         assertFalse(eastBank.contains(Item.CHICKEN));
         assertFalse(env.allItemsAcross());
     }
 
     /**
-     * westBankItems contains CHICKEN + FOX and farmer on east bank should loose game.
+     * foxAteChicken should return true if farmer on east bank and west bank contains fox and chicken.
      */
     @Test
     void foxAteChickenFarmerOnEastBank() {
@@ -86,6 +102,9 @@ public class FarmerEnvironmentTest {
         assertTrue(env.foxAteChicken(Location.EAST_BANK));
     }
 
+    /**
+     * chickenAteGrain should return true if farmer on east bank and west bank contains chicken and grain.
+     */
     @Test
     void chickenAteGrainFarmerOnEastBank() {
         ArrayList<Item> westBank = env.getWestBankItems();
@@ -94,6 +113,9 @@ public class FarmerEnvironmentTest {
         assertTrue(env.chickenAteGrain(Location.EAST_BANK));
     }
 
+    /**
+     * foxAteChicken should return true if farmer east bank and west bank contains fox and chicken.
+     */
     @Test
     void foxAteChickenFarmerOnWestBank() {
         env.addItemToEastBank(Item.CHICKEN);
@@ -101,6 +123,9 @@ public class FarmerEnvironmentTest {
         assertTrue(env.foxAteChicken(Location.WEST_BANK));
     }
 
+    /**
+     * chickenAteGrain should return true if farmer on west bank and east bank contains chicken and grain.
+     */
     @Test
     void chickenAteGrainFarmerOnWestBank() {
         env.addItemToEastBank(Item.CHICKEN);

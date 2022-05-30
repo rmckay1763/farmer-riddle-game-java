@@ -6,9 +6,12 @@ import farmer.model.IllegalActionException;
 import farmer.model.Item;
 import farmer.model.Location;
 import farmer.view.GameView;
+import farmer.view.HelpWindow;
 import farmer.view.ItemButton;
+import farmer.view.RiverView;
 
 /**
+ * <pre>
  * Listens for events from the GameView. 
  * 
  *  - onCrossRiver is called when the user clicks the cross river button.
@@ -18,12 +21,25 @@ import farmer.view.ItemButton;
  * 
  * Each listener calls methods in GameModel to process the event and update the view. 
  * GameModel updates state and a status message to send back to the view.
- * 
+ * </pre>
  */
 public class GameController {
     
+    /**
+     * GameModel for processing actions.
+     */
     private GameModel model;
+
+    /**
+     * GameView for displaying state and generating events.
+     */
     private GameView view;
+
+    private HelpWindow helpWindow;
+
+    /**
+     * CrossRiverAnimator for the boat crossing the river animation.
+     */
     private CrossRiverAnimator crossRiverAnimator;
 
     /**
@@ -32,19 +48,24 @@ public class GameController {
      * @param view The user interface for the game.
      */
     public GameController(GameModel model, GameView view) {
+
         this.model = model;
         this.view = view;
+        helpWindow = new HelpWindow();
         crossRiverAnimator = new CrossRiverAnimator(view, this);
+        addListeners();
     }
 
     /**
      * Registers listeners for each action element in the view.
      */
-    public void addListeners() {
-        view.addOnCrossRiverListener(event -> onCrossRiver());
-        view.addOnItemSelectedListener(event -> onItemSelected(event));
-        view.addOnUnloadItemListener(event -> onUnloadItemFromBoat());
-        view.addOnRestartGameListener(event -> onRestartGame());
+    private void addListeners() {
+
+        view.addCrossRiverListener(event -> onCrossRiver());
+        view.addItemSelectedListener(event -> onItemSelected(event));
+        view.addUnloadBoatListener(event -> onUnloadItemFromBoat());
+        view.addRestartListener(event -> onRestartGame());
+        view.addHelpListener(event -> onHelpSelected());
     }
 
     /**
@@ -125,8 +146,23 @@ public class GameController {
     public void onRestartGame() {
         
         crossRiverAnimator.stop();
-        crossRiverAnimator.setBoatOffset(0);
+        crossRiverAnimator.setBoatOffset(RiverView.BOAT_START_OFFSET);
         model.setInitialState();
-        view.setInitialState();    
+        view.setInitialState();
+        view.setStatusMessage(GameModel.DEFAULT_MESSAGE);  
+    }
+
+    /**
+     * Displays the help window.
+     */
+    public void onHelpSelected() {
+
+        if (helpWindow.isVisible()) {
+            helpWindow.setVisible(false);
+
+        } else {
+            helpWindow.setVisible(true);
+        }
+        
     }
 }
