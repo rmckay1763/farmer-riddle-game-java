@@ -2,25 +2,24 @@ package farmer.view;
 
 import java.util.ArrayList;
 import java.awt.event.ActionListener;
-import javax.swing.BoxLayout;
+import java.awt.GridLayout;
 import javax.swing.JPanel;
-import javax.swing.JLabel;
 import farmer.model.Item;
 import farmer.model.Location;
 
 public class RiverBankView extends JPanel {
-    private JLabel title;
+
     private ArrayList<ItemButton> itemButtons;
 
-    public RiverBankView(String title, Location location) {
+    public RiverBankView(Location location) {
         super();
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        setOpaque(false);
+        GridLayout layout = new GridLayout(3, 1);
+        setLayout(layout);
         itemButtons = new ArrayList<>();
-        itemButtons.add(new ItemButton(ImageLib.getChickeIcon(), Item.CHICKEN, location));
-        itemButtons.add(new ItemButton(ImageLib.getFoxIcon(), Item.FOX, location));
-        itemButtons.add(new ItemButton(ImageLib.getGrainIcon(), Item.GRAIN, location));
-        this.title = new JLabel(title);
-        add(this.title);
+        itemButtons.add(new ItemButton(ImageLib.CHICKEN_ICON, Item.CHICKEN, location));
+        itemButtons.add(new ItemButton(ImageLib.FOX_ICON, Item.FOX, location));
+        itemButtons.add(new ItemButton(ImageLib.GRAIN_ICON, Item.GRAIN, location));
         for (ItemButton button : itemButtons) {
             add(button);
         }

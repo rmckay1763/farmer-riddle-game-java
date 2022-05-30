@@ -15,80 +15,49 @@ import javax.swing.ImageIcon;
  */
 public class ImageLib {
 
-    private static final String RIVER_PATH = "image/river.png";
-    private static final String ITEM_CHICKEN_PATH = "image/item/chicken.png";
-    private static final String ITEM_FOX_PATH = "image/item/fox.png";
-    private static final String ITEM_GRAIN_PATH = "image/item/grain.png";
-    private static final String BOAT_DEFAULT_PATH = "image/boat/default.png";
-    private static final String BOAT_CHICKEN_PATH = "image/boat/chicken.png";
-    private static final String BOAT_FOX_PATH = "image/boat/fox.png";
-    private static final String BOAT_GRAIN_PATH = "image/boat/grain.png";
+    // control button icons
+    public static final ImageIcon HELP_ICON;
+    public static final ImageIcon CROSS_ICON;
+    public static final ImageIcon RESTART_ICON;
+    public static final ImageIcon UNLOAD_ICON;
+    public static final ImageIcon HELP_ICON_HOVER;
+    public static final ImageIcon CROSS_ICON_HOVER;
+    public static final ImageIcon RESTART_ICON_HOVER;
+    public static final ImageIcon UNLOAD_ICON_HOVER;
 
-    private static ImageIcon chickenIcon;
-    private static ImageIcon foxIcon = loadImageIcon(ITEM_FOX_PATH);
-    private static ImageIcon grainIcon = loadImageIcon(ITEM_GRAIN_PATH);
-    private static BufferedImage boatDefault = loadImage(BOAT_DEFAULT_PATH);
-    private static BufferedImage boatChicken = loadImage(BOAT_CHICKEN_PATH);
-    private static BufferedImage boatFox = loadImage(BOAT_FOX_PATH);
-    private static BufferedImage boatGrain = loadImage(BOAT_GRAIN_PATH);
-    private static BufferedImage river = loadImage(RIVER_PATH);
+    // farmer item icons
+    public static final ImageIcon CHICKEN_ICON;
+    public static final ImageIcon FOX_ICON;
+    public static final ImageIcon GRAIN_ICON;
 
-    public static ImageIcon getChickeIcon() {
-        if (chickenIcon == null) {
-            chickenIcon = loadImageIcon(ITEM_CHICKEN_PATH);
-        }
-        return chickenIcon;
+    // boat images
+    public static final BufferedImage BOAT_DEFAULT;
+    public static final BufferedImage BOAT_CHICKEN;
+    public static final BufferedImage BOAT_FOX;
+    public static final BufferedImage BOAT_GRAIN;
+
+    // river image
+    public static final BufferedImage RIVER;
+
+    static {
+        HELP_ICON = loadImageIcon("image/icon/help.png");
+        CROSS_ICON = loadImageIcon("image/icon/cross.png");
+        RESTART_ICON = loadImageIcon("image/icon/restart.png");
+        UNLOAD_ICON = loadImageIcon("image/icon/unload.png");
+        HELP_ICON_HOVER = loadImageIcon("image/icon/help_hover.png");
+        CROSS_ICON_HOVER = loadImageIcon("image/icon/cross_hover.png");
+        RESTART_ICON_HOVER = loadImageIcon("image/icon/restart_hover.png");
+        UNLOAD_ICON_HOVER = loadImageIcon("image/icon/unload_hover.png");
+        CHICKEN_ICON = loadImageIcon("image/item/chicken.png");
+        FOX_ICON = loadImageIcon("image/item/fox.png");
+        GRAIN_ICON = loadImageIcon("image/item/grain.png");
+        BOAT_DEFAULT = loadImage("image/boat/default.png");
+        BOAT_CHICKEN = loadImage("image/boat/chicken.png");
+        BOAT_FOX = loadImage("image/boat/fox.png");
+        BOAT_GRAIN = loadImage("image/boat/grain.png");
+        RIVER = loadImage("image/river.png");
     }
-
-    public static ImageIcon getFoxIcon() {
-        if (foxIcon == null) {
-            foxIcon = loadImageIcon(ITEM_FOX_PATH);
-        }
-        return foxIcon;
-    }
-
-    public static ImageIcon getGrainIcon() {
-        if (grainIcon == null) {
-            grainIcon = loadImageIcon(ITEM_GRAIN_PATH);
-        }
-        return grainIcon;
-    }
-
-    public static BufferedImage getBoatDefault() {
-        if (boatDefault == null) {
-            boatDefault = loadImage(BOAT_DEFAULT_PATH);
-        }
-        return boatDefault;
-    }
-
-    public static BufferedImage getBoatChicken() {
-        if (boatChicken == null) {
-            boatChicken = loadImage(BOAT_CHICKEN_PATH);
-        }
-        return boatChicken;
-    }
-
-    public static BufferedImage getBoatFox() {
-        if (boatFox == null) {
-            boatFox = loadImage(BOAT_FOX_PATH);
-        }
-        return boatFox;
-    }
-
-    public static BufferedImage getBoatGrain() {
-        if (boatGrain == null) {
-            boatGrain = loadImage(BOAT_GRAIN_PATH);
-        }
-        return boatGrain;
-    }
-
-    public static BufferedImage getRiver() {
-        if (river == null) {
-            river = loadImage(RIVER_PATH);
-        }
-        return river;
-    }
-
+    
     /**
      * Loads an image resouce into a BufferedImage.
      * 

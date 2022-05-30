@@ -92,10 +92,12 @@ public class GameController {
      * Starts the animation for the boat moving across the river.
      */
     private void onCrossRiver() {
+
         try {
             model.startCrossingRiver();
             crossRiverAnimator.start();
             view.setStatusMessage(model.getGameStatus());
+
         } catch (IllegalActionException error) {
             view.setStatusMessage(error.getMessage());
         }
@@ -106,10 +108,12 @@ public class GameController {
      * Notifies the model to update state.
      */
     public void onCrossRiverDone() {
+
         try {
             crossRiverAnimator.stop();
             model.doneCrossingRiver();
             view.setStatusMessage(model.getGameStatus());
+
         } catch (IllegalActionException error) {
             view.setStatusMessage(error.getMessage());
         }
@@ -119,13 +123,10 @@ public class GameController {
      * Resets the model and the view to inital state.
      */
     public void onRestartGame() {
+        
         crossRiverAnimator.stop();
         crossRiverAnimator.setBoatOffset(0);
-        model.initGame();
-        view.setBoatImage(Item.NONE);
-        view.moveBoat(0);
-        view.resetItems();
-        view.setStatusMessage(GameView.DEFAULT_MESSAGE);
-        
+        model.setInitialState();
+        view.setInitialState();    
     }
 }

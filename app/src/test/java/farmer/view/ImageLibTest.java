@@ -16,51 +16,83 @@ public class ImageLibTest {
     final String BAD_PATH = "foo/bar.png";
 
     @Test
+    void helpIcon() {
+        assertNotNull(ImageLib.HELP_ICON);
+    }
+
+    @Test
+    void crossIcon() {
+        assertNotNull(ImageLib.CROSS_ICON);
+    }
+
+    @Test
+    void unloadIcon() {
+        assertNotNull(ImageLib.UNLOAD_ICON);
+    }
+
+    @Test
+    void restartIcon() {
+        assertNotNull(ImageLib.RESTART_ICON);
+    }
+
+    @Test
+    void helpIconHover() {
+        assertNotNull(ImageLib.HELP_ICON_HOVER);
+    }
+
+    @Test
+    void crossIconHover() {
+        assertNotNull(ImageLib.CROSS_ICON_HOVER);
+    }
+
+    @Test
+    void unloadIconHover() {
+        assertNotNull(ImageLib.UNLOAD_ICON_HOVER);
+    }
+
+    @Test
+    void restartIconHover() {
+        assertNotNull(ImageLib.RESTART_ICON_HOVER);
+    }
+
+    @Test
     void chickenIcon() {
-        ImageIcon icon = ImageLib.getChickeIcon();
-        assertNotNull(icon);
+        assertNotNull(ImageLib.CHICKEN_ICON);
     }
 
     @Test
     void foxIcon() {
-        ImageIcon icon = ImageLib.getFoxIcon();
-        assertNotNull(icon);
+        assertNotNull(ImageLib.FOX_ICON);
     }
 
     @Test
     void grainIcon() {
-        ImageIcon icon = ImageLib.getFoxIcon();
-        assertNotNull(icon);
+        assertNotNull(ImageLib.GRAIN_ICON);
     }
 
     @Test
     void boatDefault() {
-        BufferedImage image = ImageLib.getBoatDefault();
-        assertNotNull(image);
+        assertNotNull(ImageLib.BOAT_DEFAULT);
     }
 
     @Test
     void boatChicken() {
-        BufferedImage image = ImageLib.getBoatChicken();
-        assertNotNull(image);
+        assertNotNull(ImageLib.BOAT_CHICKEN);
     }
 
     @Test
     void boatFox() {
-        BufferedImage image = ImageLib.getBoatFox();
-        assertNotNull(image);
+        assertNotNull(ImageLib.BOAT_FOX);
     }
 
     @Test
     void boatGrain() {
-        BufferedImage image = ImageLib.getBoatGrain();
-        assertNotNull(image);
+        assertNotNull(ImageLib.BOAT_FOX);
     }
 
     @Test
     void river() {
-        BufferedImage image = ImageLib.getRiver();
-        assertNotNull(image);
+        assertNotNull(ImageLib.RIVER);
     }
 
     /**

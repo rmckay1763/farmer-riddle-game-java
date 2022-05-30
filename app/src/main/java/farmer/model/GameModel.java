@@ -26,10 +26,10 @@ public class GameModel {
     public GameModel() {
         environment = new FarmerEnvironment();
         farmer = new FarmerModel();
-        initGame();
+        setInitialState();
     }
 
-    public void initGame() {
+    public void setInitialState() {
         environment.setInitialState();
         farmer.setInitialState();
         gameWon = false;

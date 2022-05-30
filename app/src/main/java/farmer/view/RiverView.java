@@ -27,8 +27,10 @@ public class RiverView extends JPanel {
      * @param riverImage BufferedImage representing the river.
      */
     public RiverView(BufferedImage riverImage) {
+        super();
+        setOpaque(false);
         this.riverImage = riverImage;
-        boatImage = ImageLib.getBoatDefault();
+        boatImage = ImageLib.BOAT_DEFAULT;
         boatOffset = BOAT_START_OFFSET;
         setBoatOrigin(boatOffset);
     }
