@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.ArrayList;
+import java.util.Set;
 
 public class FarmerEnvironmentTest {
 
@@ -28,8 +28,8 @@ public class FarmerEnvironmentTest {
      */
     @Test
     void initialState() {
-        ArrayList<Item> eastBank = env.getEastBankItems();
-        ArrayList<Item> westBank = env.getWestBankItems();
+        Set<Item> eastBank = env.getEastBankItems();
+        Set<Item> westBank = env.getWestBankItems();
         assertTrue(eastBank.isEmpty());
         assertTrue(westBank.contains(Item.CHICKEN));
         assertTrue(westBank.contains(Item.FOX));
@@ -42,7 +42,7 @@ public class FarmerEnvironmentTest {
      */
     @Test
     void addItemToEastBank() {
-        ArrayList<Item> eastBank = env.getEastBankItems();
+        Set<Item> eastBank = env.getEastBankItems();
         assertFalse(eastBank.contains(Item.CHICKEN));
         env.addItemToEastBank(Item.CHICKEN);
         assertTrue(eastBank.contains(Item.CHICKEN));
@@ -53,7 +53,7 @@ public class FarmerEnvironmentTest {
      */
     @Test
     void addItemToWestBank() {
-        ArrayList<Item> westBank = env.getWestBankItems();
+        Set<Item> westBank = env.getWestBankItems();
         westBank.clear();
         assertFalse(westBank.contains(Item.CHICKEN));
         env.addItemToWestBank(Item.CHICKEN);
@@ -65,7 +65,7 @@ public class FarmerEnvironmentTest {
      */
     @Test
     void removeItemFromWestBank() {
-        ArrayList<Item> westBank = env.getWestBankItems();
+        Set<Item> westBank = env.getWestBankItems();
         assertTrue(westBank.contains(Item.CHICKEN));
         env.removeItemFromWestBank(Item.CHICKEN);
         assertFalse(westBank.contains(Item.CHICKEN));
@@ -87,7 +87,7 @@ public class FarmerEnvironmentTest {
      */
     @Test
     void allItemsAcrossFalse() {
-        ArrayList<Item> eastBank = env.getEastBankItems();
+        Set<Item> eastBank = env.getEastBankItems();
         assertFalse(eastBank.contains(Item.CHICKEN));
         assertFalse(env.allItemsAcross());
     }
@@ -97,7 +97,7 @@ public class FarmerEnvironmentTest {
      */
     @Test
     void foxAteChickenFarmerOnEastBank() {
-        ArrayList<Item> westBank = env.getWestBankItems();
+        Set<Item> westBank = env.getWestBankItems();
         assertTrue(westBank.contains(Item.CHICKEN));
         assertTrue(westBank.contains(Item.FOX));
         assertTrue(env.foxAteChicken(Location.EAST_BANK));
@@ -108,7 +108,7 @@ public class FarmerEnvironmentTest {
      */
     @Test
     void chickenAteGrainFarmerOnEastBank() {
-        ArrayList<Item> westBank = env.getWestBankItems();
+        Set<Item> westBank = env.getWestBankItems();
         assertTrue(westBank.contains(Item.CHICKEN));
         assertTrue(westBank.contains(Item.GRAIN));
         assertTrue(env.chickenAteGrain(Location.EAST_BANK));

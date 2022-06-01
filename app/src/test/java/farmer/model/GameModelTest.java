@@ -1,6 +1,6 @@
 package farmer.model;
 
-import java.util.ArrayList;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,8 +32,8 @@ public class GameModelTest {
      */
     @Test
     void initialState() {
-        ArrayList<Item> eastBank = env.getEastBankItems();
-        ArrayList<Item> westBank = env.getWestBankItems();
+        Set<Item> eastBank = env.getEastBankItems();
+        Set<Item> westBank = env.getWestBankItems();
         assertFalse(farmer.isCrossingRiver());
         assertEquals(Location.WEST_BANK, farmer.getFarmerLocation());
         assertTrue(eastBank.isEmpty());
@@ -103,7 +103,7 @@ public class GameModelTest {
     @Test
     void loadItemInBoat() {
         String expected = String.format(GameModel.ITEM_LOADED_MESSAGE, Item.CHICKEN);
-        ArrayList<Item> westBank = env.getWestBankItems();
+        Set<Item> westBank = env.getWestBankItems();
         assertTrue(westBank.contains(Item.CHICKEN));
         assertEquals(Location.WEST_BANK, farmer.getFarmerLocation());
         model.loadItemInBoat(Item.CHICKEN, Location.WEST_BANK);
@@ -157,7 +157,7 @@ public class GameModelTest {
     @Test
     void unloadItemFromBoat() {
         String expected = String.format(GameModel.ITEM_UNLOADED_MESSAGE, Item.CHICKEN);
-        ArrayList<Item> westBank = env.getWestBankItems();
+        Set<Item> westBank = env.getWestBankItems();
         westBank.clear();
         env.setItemInBoat(Item.CHICKEN);
         assertFalse(westBank.contains(Item.CHICKEN));
@@ -199,7 +199,7 @@ public class GameModelTest {
      */
     @Test
     void foxAteChicken() {
-        ArrayList<Item> westBank = env.getWestBankItems();
+        Set<Item> westBank = env.getWestBankItems();
         model.startCrossingRiver();
         model.doneCrossingRiver();
         assertTrue(westBank.contains(Item.CHICKEN));
@@ -213,7 +213,7 @@ public class GameModelTest {
      */
     @Test
     void chickenAteGrain() {
-        ArrayList<Item> westBank = env.getWestBankItems();
+        Set<Item> westBank = env.getWestBankItems();
         model.loadItemInBoat(Item.FOX, Location.WEST_BANK);
         model.startCrossingRiver();
         model.doneCrossingRiver();
@@ -267,7 +267,7 @@ public class GameModelTest {
      */
     @Test
     void completeGame() {
-        ArrayList<Item> eastBank = env.getEastBankItems();
+        Set<Item> eastBank = env.getEastBankItems();
 
         // take chicken to east bank
         model.loadItemInBoat(Item.CHICKEN, Location.WEST_BANK);
