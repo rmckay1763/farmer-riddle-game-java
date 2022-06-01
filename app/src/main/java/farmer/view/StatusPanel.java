@@ -51,7 +51,6 @@ public class StatusPanel extends JPanel {
      */
     public StatusPanel() {
         this.setBackground(BLONDE);
-        // this.setBorder(new EmptyBorder(10, 50, 10, 50));
 
         GridBagLayout layout = new GridBagLayout();
         setLayout(layout);

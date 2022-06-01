@@ -35,6 +35,9 @@ public class GameController {
      */
     private GameView view;
 
+    /**
+     * Window to show when the user selects the instructions button.
+     */
     private HelpWindow helpWindow;
 
     /**
