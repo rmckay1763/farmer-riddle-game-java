@@ -21,6 +21,7 @@ public class GameModelTest {
     @BeforeEach
     void initTest() {
         model = new GameModel();
+        model.setInitialState();
         env = model.getEnvironment();
         farmer = model.getFarmer();
     }

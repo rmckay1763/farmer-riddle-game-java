@@ -22,6 +22,8 @@ public class FarmerModelTest {
     void initTest() {
         farmer = new FarmerModel();
         env = new FarmerEnvironment();
+        farmer.setInitialState();
+        env.setInitialState();
     }
 
     /**

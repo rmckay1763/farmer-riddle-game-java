@@ -19,6 +19,7 @@ public class FarmerEnvironmentTest {
     @BeforeEach
     void initTest() {
         env = new FarmerEnvironment();
+        env.setInitialState();
     }
 
     /**
