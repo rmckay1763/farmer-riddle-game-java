@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import java.util.ArrayList;
+import java.util.Set;
 
 /**
  * Test class for the FarmerModel.
@@ -40,7 +40,7 @@ public class FarmerModelTest {
      */
     @Test
     void loadItemInBoat() {
-        ArrayList<Item> westBank = env.getWestBankItems();
+        Set<Item> westBank = env.getWestBankItems();
         assertTrue(westBank.contains(Item.CHICKEN));
         assertEquals(Location.WEST_BANK, farmer.getFarmerLocation());
         assertEquals(Item.NONE, env.getItemInBoat());
@@ -54,7 +54,7 @@ public class FarmerModelTest {
      */
     @Test
     void unloadItemFromBoat() {
-        ArrayList<Item> westBank = env.getWestBankItems();
+        Set<Item> westBank = env.getWestBankItems();
         westBank.clear();
         assertFalse(westBank.contains(Item.CHICKEN));
         assertEquals(Location.WEST_BANK, farmer.getFarmerLocation());

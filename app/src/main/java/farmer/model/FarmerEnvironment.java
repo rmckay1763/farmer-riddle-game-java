@@ -1,6 +1,7 @@
 package farmer.model;
 
-import java.util.ArrayList;
+import java.util.Set;
+import java.util.EnumSet;
 
 /**
  * <pre>
@@ -17,12 +18,12 @@ public class FarmerEnvironment {
     /**
      * List of Items on the east bank of the river.
      */
-    private ArrayList<Item> eastBankItems;
+    private Set<Item> eastBankItems;
 
     /**
      * List of Items on the west bank of the river.
      */
-    private ArrayList<Item> westBankItems;
+    private Set<Item> westBankItems;
 
     /**
      * The Item loaded in the boat.
@@ -34,8 +35,8 @@ public class FarmerEnvironment {
      */
     public FarmerEnvironment() {
 
-        eastBankItems = new ArrayList<>();
-        westBankItems = new ArrayList<>();
+        eastBankItems = EnumSet.noneOf(Item.class);
+        westBankItems = EnumSet.noneOf(Item.class);
     }
 
     /**
@@ -79,7 +80,7 @@ public class FarmerEnvironment {
      * 
      * @return List of Items on the east bank.
      */
-    public ArrayList<Item> getEastBankItems() {
+    public Set<Item> getEastBankItems() {
 
         return eastBankItems;
     }
@@ -89,7 +90,7 @@ public class FarmerEnvironment {
      * 
      * @return List of Items on the west bank.
      */
-    public ArrayList<Item> getWestBankItems() {
+    public Set<Item> getWestBankItems() {
 
         return westBankItems;
     }

@@ -2,13 +2,13 @@ package farmer.view;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Insets;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import farmer.model.Location;
 
@@ -20,12 +20,14 @@ public class StatusPanel extends JPanel {
     private static final Color BROWN;
     private static final Color BLONDE;
     private static final Font FONT;
+    private static final Font FONT_LARGE;
     private static final CompoundBorder BORDER;
 
     static {
         BROWN = new Color(94, 57, 32);
         BLONDE = new Color(246, 236, 213);
         FONT = new Font("Gill Sans MT", Font.BOLD, 18);
+        FONT_LARGE = new Font("Gill Sans MT", Font.BOLD, 24);
 
         BORDER = BorderFactory.createCompoundBorder(
             
@@ -38,7 +40,7 @@ public class StatusPanel extends JPanel {
                 BROWN
             ),
             
-            BorderFactory.createEmptyBorder(10, 20, 10, 20)
+            BorderFactory.createEmptyBorder(10, 10, 10, 10)
         );
     }
 
@@ -49,7 +51,7 @@ public class StatusPanel extends JPanel {
      */
     public StatusPanel() {
         this.setBackground(BLONDE);
-        this.setBorder(new EmptyBorder(10, 50, 10, 50));
+        // this.setBorder(new EmptyBorder(10, 50, 10, 50));
 
         GridBagLayout layout = new GridBagLayout();
         setLayout(layout);
@@ -63,14 +65,17 @@ public class StatusPanel extends JPanel {
         eastBankLabel.setForeground(BROWN);
 
         statusLabel = new JLabel();
-        statusLabel.setFont(FONT);
+        statusLabel.setFont(FONT_LARGE);
         statusLabel.setForeground(BROWN);
         statusLabel.setBorder(BORDER);
 
         GridBagConstraints constraints = new GridBagConstraints();
 
-        constraints.gridx = 0;
+        constraints.insets = new Insets(10, 20, 10, 20);
         constraints.gridy = 0;
+
+        constraints.gridx = 0;
+        constraints.weightx = 0;
         add(westBankLabel, constraints);
 
         constraints.gridx = 1;
